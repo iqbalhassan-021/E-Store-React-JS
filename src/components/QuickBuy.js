@@ -18,25 +18,25 @@ const QuickBuy = () => {
             <p>Shipping fee may be added based on the location</p>
             <p>Available sizes - Click on any to see Size Chart</p>
             <div className="size-container">
-              <div className="size">S</div>
-              <div className="size">M</div>
-              <div className="size">L</div>
+              <div className="size">S</div><p style={{opacity: '0%'}}>--</p>
+              <div className="size">M</div><p style={{opacity: '0%'}}>--</p>
+              <div className="size">L</div><p style={{opacity: '0%'}}>--</p>
               <div className="size">XL</div>
             </div>
             <br />
             <p>Available Colors</p>
             <div className="size-container">
-              <div className="color" style={{ backgroundColor: '#000000' }} title="Black"></div>
-              <div className="color" style={{ backgroundColor: '#B7B7B7' }} title="Heather Grey"></div>
-              <div className="color" style={{ backgroundColor: '#FFB6C1' }} title="Light Pink"></div>
-              <div className="color" style={{ backgroundColor: '#000080' }} title="Navy"></div>
-              <div className="color" style={{ backgroundColor: '#FF0000' }} title="Red"></div>
-              <div className="color" style={{ backgroundColor: '#4169E1' }} title="Royal Blue"></div>
-              <div className="color" style={{ backgroundColor: '#FFFFFF', border: '1px solid black' }} title="White"></div>
-              <div className="color" style={{ backgroundColor: '#F5F5DC' }} title="Beige"></div>
-              <div className="color" style={{ backgroundColor: '#36454F' }} title="Charcoal Grey"></div>
-              <div className="color" style={{ backgroundColor: '#D8BFD8' }} title="Light Purple"></div>
-              <div className="color" style={{ backgroundColor: '#FFDB58' }} title="Mustard"></div>
+              <div className="color" style={{ backgroundColor: '#000000' }} title="Black"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#B7B7B7' }} title="Heather Grey"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#FFB6C1' }} title="Light Pink"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#000080' }} title="Navy"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#FF0000' }} title="Red"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#4169E1' }} title="Royal Blue"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#FFFFFF', border: '1px solid black' }} title="White"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#F5F5DC' }} title="Beige"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#36454F' }} title="Charcoal Grey"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#D8BFD8' }} title="Light Purple"></div><p style={{opacity: '0%'}}>-</p>
+              <div className="color" style={{ backgroundColor: '#FFDB58' }} title="Mustard"></div><p style={{opacity: '0%'}}>-</p>
               <div className="color" style={{ backgroundColor: '#87CEEB' }} title="Sky Blue"></div>
             </div>
             <br />

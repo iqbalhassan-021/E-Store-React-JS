@@ -8,18 +8,23 @@ import ProductsPage from './pages/Products';
 import BlogPage from './pages/Blog';
 import LoginPage from './pages/Login';
 import AdminPage from './pages/Admin';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   return (
-   <>
-    {/* <Home/> */}
-    {/* <AboutPage/> */}
-    {/* <ContactPage/> */}
-    {/* <ProductsPage/> */}
-    {/* <BlogPage/> */}
-    {/* <LoginPage/> */}
-    <AdminPage/>
-   </>
+   <Router>
+    <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path='/About' element={<AboutPage/>}/>
+    <Route path='/Contact' element={<ContactPage/>}/>
+    <Route path='/Products' element={<ProductsPage/>}/>
+    <Route path='/Blog' element={<BlogPage/>}/>
+    <Route path='/Login' element={<LoginPage/>}/>
+    <Route path='/Admin' element={<AdminPage/>}/>
+    </Routes>
+
+
+    </Router>
   );
 }
 

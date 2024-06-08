@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
+    const siteName = "ISHA PRINTS"; 
   return (
     <>
                 <div className="footer">
@@ -9,35 +11,33 @@ const Footer = () => {
                             <div className="qucik-links">
                                 <h3>Quick Links</h3>
                                 <br/>
-                                <a href="#" className="no-decoration navLink">
-                                    <p>
-                                        About
-                                    </p>
-                                </a>
+                                <Link to="/About" className='no-decoration navLink'>
+                                    <p>About</p>
+                                </Link>
                                 <br/>
-                                <a href="#" className="no-decoration navLink">
+                                <Link to="/Contact" className="no-decoration navLink">
                                     <p>
                                         Contact
                                     </p>
-                                </a>
+                                </Link>
                                 <br/>
-                                <a href="#" className="no-decoration navLink">
+                                <Link to="/Products" className="no-decoration navLink">
                                     <p>
                                         Products
                                     </p>
-                                </a>
+                                </Link>
                                 <br/>
-                                <a href="#" className="no-decoration navLink">
+                                <a  className="no-decoration navLink">
                                     <p>
                                         Create your Store
                                     </p>
                                 </a>
                                 <br/>
-                                <a href="#" className="no-decoration navLink">
+                                <Link to="/Login" className="no-decoration navLink">
                                     <p>
                                         Admin
                                     </p>
-                                </a>
+                                </Link>
                             </div>
                             <div className="contact-details">
                                 <h3>Contact Details</h3>
@@ -83,7 +83,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className="copyright">
-                            @Copyright 2024 all rights reserved. <a href="#" className="no-decoration">isha_prints</a>
+                            @Copyright 2024 all rights reserved. <a href="#" className="no-decoration">{siteName}</a>
                         </div>
                     </div>
                 </div>

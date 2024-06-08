@@ -1,6 +1,179 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const AdminPage = () => {
+    function toggle(){
+        const togglebar = document.getElementById('togglebar');
+        if(togglebar.style.display === 'flex'){
+            togglebar.style.display = 'none';
+        }else{
+            togglebar.style.display = 'flex';
+        }
+    }
+    function showHome(){
+
+        const hometab = document.getElementById('hometab');
+        const upoadBlog = document.getElementById('upoadBlog');
+        const orders = document.getElementById('orders');
+        const uploadtab = document.getElementById('uploadtab');
+        const editstore = document.getElementById('editstore');
+        const subscribers = document.getElementById('subscribers');
+        if (hometab.style.display === 'grid') {
+          hometab.style.display = 'grid';
+
+        } else {
+          hometab.style.display = 'grid';
+          orders.style.display = 'none';
+          uploadtab.style.display = 'none';
+          editstore.style.display = 'none';
+          subscribers.style.display = 'none';
+          upoadBlog.style.display = 'none';
+          const togglebar = document.getElementById('togglebar');
+          if(window.innerWidth <= 880){
+            togglebar.style.display = 'none';
+          }
+          else{
+              togglebar.style.display = 'flex';
+          }
+        
+        }
+      }
+      function showOrders(){
+        const hometab = document.getElementById('hometab');
+        const upoadBlog = document.getElementById('upoadBlog');
+        const orders = document.getElementById('orders');
+        const uploadtab = document.getElementById('uploadtab');
+        const editstore = document.getElementById('editstore');
+        const subscribers = document.getElementById('subscribers');
+        if (orders.style.display === 'grid') {
+            orders.style.display = 'none';
+            hometab.style.display = 'grid';
+        }
+        else {
+          hometab.style.display = 'none';
+          upoadBlog.style.display = 'none';
+          orders.style.display = 'grid';
+          uploadtab.style.display = 'none';
+          editstore.style.display = 'none';
+          subscribers.style.display = 'none';
+          const togglebar = document.getElementById('togglebar');
+          if(window.innerWidth <= 880){
+            togglebar.style.display = 'none';
+          }
+          else{
+              togglebar.style.display = 'flex';
+          }
+        }
+      }
+      function showUploadProducts(){
+        const hometab = document.getElementById('hometab');
+        const upoadBlog = document.getElementById('upoadBlog');
+        const orders = document.getElementById('orders');
+        const uploadtab = document.getElementById('uploadtab');
+        const editstore = document.getElementById('editstore');
+        const subscribers = document.getElementById('subscribers');
+        if (uploadtab.style.display === 'block') {
+            uploadtab.style.display = 'none';
+            hometab.style.display = 'grid';
+        }
+        else {
+            uploadtab.style.display = 'block';
+        hometab.style.display = 'none';
+          orders.style.display = 'none';
+            upoadBlog.style.display = 'none';
+          editstore.style.display  ='none';
+          subscribers.style.display = 'none';
+          const togglebar = document.getElementById('togglebar');
+          if(window.innerWidth <= 880){
+            togglebar.style.display = 'none';
+          }
+          else{
+              togglebar.style.display = 'flex';
+          }
+        }
+      }
+      function showEditStore(){
+        const hometab = document.getElementById('hometab');
+        const upoadBlog = document.getElementById('upoadBlog');
+        const orders = document.getElementById('orders');
+        const uploadtab = document.getElementById('uploadtab');
+        const editstore = document.getElementById('editstore');
+        const subscribers = document.getElementById('subscribers');
+        if (editstore.style.display === 'block') {
+            editstore.style.display = 'none';
+            hometab.style.display = 'grid';
+        }
+        else {
+            editstore.style.display = 'block';
+        hometab.style.display = 'none';
+          orders.style.display = 'none';
+            upoadBlog.style.display = 'none';
+          uploadtab.style.display = 'none';
+          subscribers.style.display = 'none';
+          const togglebar = document.getElementById('togglebar');
+          if(window.innerWidth <= 880){
+            togglebar.style.display = 'none';
+          }
+          else{
+              togglebar.style.display = 'flex';
+          }
+        }
+      }
+      function showUploadBlog(){
+        
+        const hometab = document.getElementById('hometab');
+        const upoadBlog = document.getElementById('upoadBlog');
+        const orders = document.getElementById('orders');
+        const uploadtab = document.getElementById('uploadtab');
+        const editstore = document.getElementById('editstore');
+        const subscribers = document.getElementById('subscribers');
+        if (upoadBlog.style.display === 'block') {
+            upoadBlog.style.display = 'none';
+            hometab.style.display = 'grid';
+        }
+        else {
+            upoadBlog.style.display = 'block';
+        hometab.style.display = 'none';
+          orders.style.display = 'none';
+          uploadtab.style.display = 'none';
+          editstore.style.display = 'none';
+          subscribers.style.display = 'none';
+          const togglebar = document.getElementById('togglebar');
+          if(window.innerWidth <= 880){
+            togglebar.style.display = 'none';
+          }
+          else{
+              togglebar.style.display = 'flex';
+          }
+        }
+      }
+      function showSubscribers(){
+        
+        const hometab = document.getElementById('hometab');
+        const upoadBlog = document.getElementById('upoadBlog');
+        const orders = document.getElementById('orders');
+        const uploadtab = document.getElementById('uploadtab');
+        const editstore = document.getElementById('editstore');
+        const subscribers = document.getElementById('subscribers');
+        if (subscribers.style.display === 'block') {
+            subscribers.style.display = 'none';
+            hometab.style.display = 'grid';
+        }
+        else {
+            upoadBlog.style.display = 'none';
+        hometab.style.display = 'none';
+          orders.style.display = 'none';
+          uploadtab.style.display = 'none';
+          editstore.style.display = 'none';
+          subscribers.style.display = 'block';
+          const togglebar = document.getElementById('togglebar');
+          if(window.innerWidth <= 880){
+            togglebar.style.display = 'none';
+          }
+          else{
+              togglebar.style.display = 'flex';
+          }
+        }
+      }
   return (
 
     <div className="admin-page">
@@ -8,7 +181,7 @@ const AdminPage = () => {
       <div className="admin-section">
           <div className="cover">
           <div className="admin-actions">
-              <button className="toggle-button">
+              <button className="toggle-button" onClick={toggle}>
                   <i className="fa-sharp fa-solid fa-bars"></i>
               </button>
               <h3>Admin Page</h3>
@@ -20,20 +193,21 @@ const AdminPage = () => {
       <div className="cover">
           <div className="Toggleactions">
               <div className="toggle-bar" id="togglebar">
-                  <button className="primary-button">Home</button>
-                  <button className="primary-button">New Orders</button>
-                  <button className="primary-button">Upload a product</button>
-                  <button className="primary-button">Edit Store</button>
-                  <button className="primary-button">Upload a Blog</button>
-                  <button className="primary-button">Subscribers</button>
-                  <button className="primary-button">Contact the developer</button>
-                  <button className="primary-button">Go back to Store</button>
+                  <button className="primary-button" onClick={showHome}>Home</button>
+                  <button className="primary-button" onClick={showOrders}>New Orders</button>
+                  <button className="primary-button" onClick={showUploadProducts}>Upload a product</button>
+                  <button className="primary-button" onClick={showEditStore}>Edit Store</button>
+                  <button className="primary-button" onClick={showUploadBlog}>Upload a Blog</button>
+                  <button className="primary-button" onClick={showSubscribers}>Subscribers</button>
+                  <button className="primary-button" >Contact the developer</button>
+                  <Link to="/" className='no-decoration navLink'>
+                  <button className="primary-button" >Go to store</button>
+                </Link>
               </div>
               <div className="tabs">
                   <div className="homeTab" id="hometab">
 
           
-          <a href="#" className="no-decoration">
             
               <div className="product-card">
                   <div className="image-container">
@@ -56,7 +230,7 @@ const AdminPage = () => {
                   </div>
               </div>
            
-          </a>
+
 
 
 
@@ -172,7 +346,7 @@ const AdminPage = () => {
                               <label htmlFor="address">Store address </label>
                               <input type="text" name="address" id="address" placeholder="address.." required/>
                           </div>
-                          
+                          <button className="primary-button">Save Details</button>
                       </form>
                   </div>
                   <div className="uploadBlog" id="upoadBlog">
@@ -190,6 +364,7 @@ const AdminPage = () => {
                               <label htmlFor="blogContent">Content </label>
                               <textarea type="text" name="blogContent" id="blogContent" cols="15" rows="15" required></textarea>
                           </div>
+                          <button className="primary-button">Upload Blog</button>
                       </form>
                   </div>
                   <div className="subscribers" id="subscribers">

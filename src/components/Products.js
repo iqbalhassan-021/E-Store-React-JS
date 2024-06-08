@@ -72,24 +72,30 @@ const ProductShowcase = () => {
     <div className="product-showcase">
       <div className="cover">
         <div className="showcase grid">
-          {products.map((product) => (
-            <a href="#" className="no-decoration" key={product.id}>
-              <div className="product-card">
-                <div className="image-container">
-                  <img src={product.imgSrc} alt={product.altText} className="Product-image" />
+          {products.length === 0 ? (
+            <p>No products are added yet</p>
+          ) : (
+            products.map((product) => (
+              <a href="#" className="no-decoration" key={product.id}>
+                <div className="product-card">
+                  <div className="image-container">
+                    <img src={product.imgSrc} alt={product.altText} className="Product-image" />
+                  </div>
+                  <div className="text-holder">
+                    <p>{product.title}</p>
+                    <p>Type: {product.type}</p>
+                    <p className="price-tag">{product.price}</p>
+                  </div>
                 </div>
-                <div className="text-holder">
-                  <p>{product.title}</p>
-                  <p>Type: {product.type}</p>
-                  <p className="price-tag">{product.price}</p>
-                </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            ))
+          )}
         </div>
-        <a href="#" className="no-decoration">
-          <button className="primary-button">Show All Products</button>
-        </a>
+        {products.length > 0 && (
+          <a href="#" className="no-decoration">
+            <button className="primary-button">Show All Products</button>
+          </a>
+        )}
       </div>
     </div>
   );

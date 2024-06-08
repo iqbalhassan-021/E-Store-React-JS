@@ -1,57 +1,93 @@
 import React from 'react';
-
-class Navbar extends React.Component {
-  handleHamburger = () => {
-    // Handle hamburger menu click
+import { Link } from 'react-router-dom';
+const Navbar = () => {
+  const siteImage = "/assets/images/logo.png";
+  const siteName = "ISHA PRINTS"; 
+  function handleHamburger(){
+    const mobilenav = document.getElementById('mobilenav');
+    if (mobilenav.style.display === 'flex') {
+      mobilenav.style.display = 'none';
+    } else {
+      mobilenav.style.display = 'flex';
+    }
   };
 
-  handleSearch = () => {
-    // Handle search button click
+  function handleSearch(){
+    const searchContainer = document.getElementById('searchContainer');
+    if (searchContainer.style.display === 'flex') {
+      searchContainer.style.display = 'none';
+    } else {
+      searchContainer.style.display = 'flex';
+    }
   };
 
-  render() {
+
     return (
       <div className="wrapper">
-        {/* navBar */}
+   
         <div className="navbar sticky">
           <div className="cover">
             <div className="header">
               <div className="nav-container hamburger">
-                <button className="toggle-button" style={{ color: 'black' }} onClick={this.handleHamburger}>
+                <button className="toggle-button" style={{ color: 'black' }} onClick={handleHamburger}>
                   <i className="fa-solid fa-bars"></i>
                 </button>
               </div>
               <div className="nav-container links">
-                <a href="#" className="no-decoration navLink">
+                <Link to="/" className='no-decoration navLink'>
                   <p>Home</p>
-                </a>
+                </Link>
                 <p style={{ opacity: '0%' }}>--</p>
-                <a href="#" className="no-decoration navLink">
+                <Link to="/About" className='no-decoration navLink'>
                   <p>About</p>
-                </a>
+                </Link>
                 <p style={{ opacity: '0%' }}>--</p>
-                <a href="#" className="no-decoration navLink">
+                <Link to="/Blog" className='no-decoration navLink'>
                   <p>Blog</p>
-                </a>
+                </Link>
                 <p style={{ opacity: '0%' }}>--</p>
-                <a href="#" className="no-decoration navLink">
+                <Link to="/Contact" className='no-decoration navLink'>
                   <p>Contact</p>
-                </a>
+                </Link>
               </div>
               <div className="nav-container logo-holder">
-                <a href="#">
-                  <img src="/assets/images/logo.png" alt="Logo" className="logo" />
-                </a>
+                {siteImage? (
+                  <Link to="/">
+                  <img src={siteImage} alt="Logo" className="logo" />
+                  </Link>
+                ) : 
+                <Link to="/">
+                  <h1>{siteName}</h1>
+                </Link>
+                }
+
               </div>
               <div className="nav-container actions">
-                <button className="search-button" onClick={this.handleSearch}>
+                <button className="search-button" onClick={handleSearch}>
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <p style={{ opacity: '0%' }}>----</p>
-                <a href="#" className="no-decoration navLink">
+                <Link to="/Products" className="no-decoration navLink">
                   <i className="fa-solid fa-bag-shopping"></i>
-                </a>
+                </Link>
               </div>
+            </div>
+            <div className='mobile-nav' id='mobilenav'>
+              <Link to="/" className='no-decoration navLink'>
+                  <p>Home</p>
+                </Link>
+                <p style={{ opacity: '0%' }}>--</p>
+                <Link to="/About" className='no-decoration navLink'>
+                  <p>About</p>
+                </Link>
+                <p style={{ opacity: '0%' }}>--</p>
+                <Link to="/Blog" className='no-decoration navLink'>
+                  <p>Blog</p>
+                </Link>
+                <p style={{ opacity: '0%' }}>--</p>
+                <Link to="/Contact" className='no-decoration navLink'>
+                  <p>Contact</p>
+                </Link>
             </div>
             <div className="search-container" id="searchContainer">
               <div className="search-form">
@@ -68,6 +104,6 @@ class Navbar extends React.Component {
       </div>
     );
   }
-}
+
 
 export default Navbar;
