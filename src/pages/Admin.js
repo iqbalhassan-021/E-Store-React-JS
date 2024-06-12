@@ -1,14 +1,99 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { collection, addDoc, getFirestore } from 'firebase/firestore';
+import { app } from '../firebase'; // Import your Firebase config
+
 const AdminPage = () => {
-    function toggle(){
-        const togglebar = document.getElementById('togglebar');
-        if(togglebar.style.display === 'flex'){
-            togglebar.style.display = 'none';
-        }else{
-            togglebar.style.display = 'flex';
-        }
+
+
+
+  const [storeData, setStoreData] = useState({
+    storeLogo: '',
+    storeName: '',
+    instaID: '',
+    phone: '',
+    email: '',
+    address: '',
+  });
+
+  const [blogData, setBlogData] = useState({
+    blogHeading: '',
+    blogImage: '',
+    blogContent: '',
+  });
+
+  const db = getFirestore(app); // Initialize Firestore
+
+  const handleProductSubmit = async (e) => {
+
+    const productData = {
+      productImage:   document.getElementById('productImage').value,
+      productName:   document.getElementById('productName').value,
+      productPrice:  document.getElementById('productPrice').value,
+      productCode:   document.getElementById('productCode').value,
+      productType:   document.getElementById('productType').value
     }
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, 'products'), productData);
+      alert('Product added successfully!');
+    } catch (error) {
+      console.error('Error adding product:', error);
+      alert('Error adding product. Please try again.');
+    }
+  };
+
+  const handleStoreSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, 'storeDetails'), storeData);
+      setStoreData({
+        storeLogo: '',
+        storeName: '',
+        instaID: '',
+        phone: '',
+        email: '',
+        address: '',
+      });
+      alert('Store details saved successfully!');
+    } catch (error) {
+      console.error('Error saving store details:', error);
+      alert('Error saving store details. Please try again.');
+    }
+  };
+
+  const handleBlogSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, 'blogs'), blogData);
+      setBlogData({
+        blogHeading: '',
+        blogImage: '',
+        blogContent: '',
+      });
+      alert('Blog uploaded successfully!');
+    } catch (error) {
+      console.error('Error uploading blog:', error);
+      alert('Error uploading blog. Please try again.');
+    }
+  };
+
+  const handleChange = (e, setData, data) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  function toggle() {
+    const togglebar = document.getElementById('togglebar');
+    if (togglebar.style.display === 'flex') {
+      togglebar.style.display = 'none';
+    } else {
+      togglebar.style.display = 'flex';
+    }
+  }
     function showHome(){
 
         const hometab = document.getElementById('hometab');
@@ -286,7 +371,7 @@ const AdminPage = () => {
 
                   <div className="uploadTab" id="uploadtab">
                       <h3>Upload a Product</h3>
-                      <form action="#">
+                      <form onSubmit={handleProductSubmit}>
                           <div className="input-holder">
                               <label for="productImage">Product Image Source</label>
                               <input type="text" name="productImage" id="productImage" placeholder="src.." required/>

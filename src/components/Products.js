@@ -4,68 +4,13 @@ const ProductShowcase = () => {
   const products = [
     {
       id: 1,
-      imgSrc: 'assets/images/s1.png',
+      imgSrc: 'https://i.ibb.co/QDgR8HN/Hiding-in-the-shadows-removebg-preview.png',
       altText: 'Product Image',
       title: 'Wolf and the moon printed shirt',
       type: 'Oversized',
       price: 'From RS.1800',
     },
-    {
-      id: 2,
-      imgSrc: 'assets/images/s1.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
-    {
-      id: 3,
-      imgSrc: 'assets/images/s1.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
-    {
-      id: 4,
-      imgSrc: 'assets/images/s1.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
-    {
-      id: 5,
-      imgSrc: 'assets/images/s1.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
-    {
-      id: 6,
-      imgSrc: 'assets/images/s1.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
-    {
-      id: 7,
-      imgSrc: 'assets/images/s1.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
-    {
-      id: 8,
-      imgSrc: 'assets/images/s1.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
+   
   ];
 
   return (
