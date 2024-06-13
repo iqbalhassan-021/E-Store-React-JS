@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 const Navbar = () => {
-  const siteImage = "/assets/images/logo.png";
-  const siteName = "ISHA PRINTS"; 
+  const [siteName, setSiteName] = useState('');
+  const [siteLogo, setSiteLogo] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const dataCollection = collection(db, 'storeDetails');
+      try {
+        const querySnapshot = await getDocs(dataCollection);
+        if (!querySnapshot.empty) {
+          const firstDocument = querySnapshot.docs[0];
+          const siteInfo = firstDocument.data(); // Corrected typo here
+          const siteName = siteInfo.siteName;
+          const siteLogo = siteInfo.storeLogo;
+
+          setSiteName(siteName);
+          setSiteLogo(siteLogo)
+
+        } else {
+          console.log('No documents found!');
+        }
+      } catch (error) {
+        console.error("Error retrieving site data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   function handleHamburger(){
     const mobilenav = document.getElementById('mobilenav');
     if (mobilenav.style.display === 'flex') {
@@ -51,9 +78,9 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="nav-container logo-holder">
-                {siteImage? (
+                {siteLogo? (
                   <Link to="/">
-                  <img src={siteImage} alt="Logo" className="logo" />
+                  <img src={siteLogo} alt="Logo" className="logo" />
                   </Link>
                 ) : 
                 <Link to="/">

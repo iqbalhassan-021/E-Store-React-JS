@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-    const siteName = "ISHA PRINTS"; 
+    const [siteName, setSiteName] = useState('');
+    const [instaID, setInstaID] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const db = getFirestore();
+        const dataCollection = collection(db, 'storeDetails');
+        try {
+          const querySnapshot = await getDocs(dataCollection);
+          if (!querySnapshot.empty) {
+            const firstDocument = querySnapshot.docs[0];
+            const siteInfo = firstDocument.data(); // Corrected typo here
+            const siteName = siteInfo.storeName;
+            const instaID = siteInfo.instaID;
+            const phone = siteInfo.phone;
+            const email = siteInfo.email;
+            const address = siteInfo.address;
+  
+            setSiteName(siteName);
+            setInstaID(instaID);
+            setPhone(phone);
+            setEmail(email);
+            setAddress(address);
+          } else {
+            console.log('No documents found!');
+          }
+        } catch (error) {
+          console.error("Error retrieving site data: ", error);
+        }
+      };
+      fetchData();
+    }, []);
+
+    
+
   return (
     <>
                 <div className="footer">
@@ -27,9 +65,9 @@ const Footer = () => {
                                     </p>
                                 </Link>
                                 <br/>
-                                <a  className="no-decoration navLink">
+                                <a  className="no-decoration navLink" href='https://hassansbio.netlify.app/'>
                                     <p>
-                                        Create your Store
+                                        Get your Store
                                     </p>
                                 </a>
                                 <br/>
@@ -43,15 +81,20 @@ const Footer = () => {
                                 <h3>Contact Details</h3>
                                 <br/>
                                 <p>
-                                    <strong>Email: </strong> <a href="mailto:hassan.ashfaq82@gmail.com" className="no-decoration">hassan.ashfaq82@gmail.com</a>
+                                    <strong>Email: </strong> <a href={`mailto:${email}`} className="no-decoration">
+                                        {email}
+                                    </a>
                                 </p>
                                 <br/>
                                 <p>
-                                    <strong>Contact no: </strong> <a href="tel:03121798713" className="no-decoration">03121798713</a>
+                                    <strong>Contact no: </strong> <a href={`tel:${phone}`} className="no-decoration">
+                                        {phone}
+                                    </a>
                                 </p>
                                 <br/>
                                 <p>
-                                    <strong>Address: </strong> Street NO# 3 Muhala Rehamtabad Gujrat Punjab Paksitan
+                                    <strong>Address: </strong>
+                                    {address}
                                 </p>
                                 <br/>
                                 <p>
@@ -83,7 +126,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className="copyright">
-                            @Copyright 2024 all rights reserved. <a href="#" className="no-decoration">{siteName}</a>
+                            @Copyright 2024 all rights reserved. <a href={instaID} className="no-decoration">{siteName}</a>
                         </div>
                     </div>
                 </div>

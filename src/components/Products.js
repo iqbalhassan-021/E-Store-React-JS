@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const ProductShowcase = () => {
-  const products = [
-    {
-      id: 1,
-      imgSrc: 'https://i.ibb.co/QDgR8HN/Hiding-in-the-shadows-removebg-preview.png',
-      altText: 'Product Image',
-      title: 'Wolf and the moon printed shirt',
-      type: 'Oversized',
-      price: 'From RS.1800',
-    },
-   
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const dataCollection = collection(db, 'products');
+      try {
+        const querySnapshot = await getDocs(dataCollection);
+        const productList = querySnapshot.docs.map(doc => doc.data());
+        setProducts(productList);
+      } catch (error) {
+        console.error("Error retrieving product data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="product-showcase">
@@ -21,15 +28,15 @@ const ProductShowcase = () => {
             <p>No products are added yet</p>
           ) : (
             products.map((product) => (
-              <a href="#" className="no-decoration" key={product.id}>
+              <a href="#" className="no-decoration" key={product.productCode}>
                 <div className="product-card">
                   <div className="image-container">
-                    <img src={product.imgSrc} alt={product.altText} className="Product-image" />
+                    <img src={product.productImage} alt={product.productName} className="Product-image" />
                   </div>
                   <div className="text-holder">
-                    <p>{product.title}</p>
-                    <p>Type: {product.type}</p>
-                    <p className="price-tag">{product.price}</p>
+                    <p>{product.productName}</p>
+                    <p>Type: {product.productType}</p>
+                    <p className="price-tag">From RS.{product.productPrice}</p>
                   </div>
                 </div>
               </a>
@@ -37,9 +44,9 @@ const ProductShowcase = () => {
           )}
         </div>
         {products.length > 0 && (
-          <a href="#" className="no-decoration">
+          <Link to='/products' className="no-decoration">
             <button className="primary-button">Show All Products</button>
-          </a>
+          </Link>
         )}
       </div>
     </div>

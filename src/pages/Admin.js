@@ -2,25 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, addDoc, getFirestore } from 'firebase/firestore';
 import { app } from '../firebase'; // Import your Firebase config
+import ProductShowcase from '../components/Products';
 
 const AdminPage = () => {
 
 
 
-  const [storeData, setStoreData] = useState({
-    storeLogo: '',
-    storeName: '',
-    instaID: '',
-    phone: '',
-    email: '',
-    address: '',
-  });
-
-  const [blogData, setBlogData] = useState({
-    blogHeading: '',
-    blogImage: '',
-    blogContent: '',
-  });
 
   const db = getFirestore(app); // Initialize Firestore
 
@@ -44,17 +31,19 @@ const AdminPage = () => {
   };
 
   const handleStoreSubmit = async (e) => {
+    const storeData = {
+      storeLogo: document.getElementById('storeLogo').value,
+      storeName: document.getElementById('storeName').value,
+      instaID: document.getElementById('instaID').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      address: document.getElementById('address').value,
+      storeBanner: document.getElementById('storeBanner').value,
+      storeSlogan: document.getElementById('storeSlogan').value 
+    }
     e.preventDefault();
     try {
       await addDoc(collection(db, 'storeDetails'), storeData);
-      setStoreData({
-        storeLogo: '',
-        storeName: '',
-        instaID: '',
-        phone: '',
-        email: '',
-        address: '',
-      });
       alert('Store details saved successfully!');
     } catch (error) {
       console.error('Error saving store details:', error);
@@ -63,14 +52,15 @@ const AdminPage = () => {
   };
 
   const handleBlogSubmit = async (e) => {
+    const blogData = {
+      blogHeading: document.getElementById('blogHeading').value,
+      blogImage: document.getElementById('blogImage').value,
+      blogContent: document.getElementById('blogImage').value,
+
+    }
     e.preventDefault();
     try {
       await addDoc(collection(db, 'blogs'), blogData);
-      setBlogData({
-        blogHeading: '',
-        blogImage: '',
-        blogContent: '',
-      });
       alert('Blog uploaded successfully!');
     } catch (error) {
       console.error('Error uploading blog:', error);
@@ -284,7 +274,7 @@ const AdminPage = () => {
                   <button className="primary-button" onClick={showEditStore}>Edit Store</button>
                   <button className="primary-button" onClick={showUploadBlog}>Upload a Blog</button>
                   <button className="primary-button" onClick={showSubscribers}>Subscribers</button>
-                  <button className="primary-button" >Contact the developer</button>
+                  
                   <Link to="/" className='no-decoration navLink'>
                   <button className="primary-button" >Go to store</button>
                 </Link>
@@ -314,9 +304,6 @@ const AdminPage = () => {
                       </p>
                   </div>
               </div>
-           
-
-
 
 
                   </div>
@@ -376,6 +363,7 @@ const AdminPage = () => {
                               <label for="productImage">Product Image Source</label>
                               <input type="text" name="productImage" id="productImage" placeholder="src.." required/>
                           </div>
+
                           <div className="input-holder">
                               <label for="productName">Product Name</label>
                               <input type="text" name="productName" id="productName" placeholder="product Name.." required/>
@@ -406,10 +394,18 @@ const AdminPage = () => {
                   </div>
                   <div className="editStore" id="editstore">
                       <h3>Edit Store</h3>
-                      <form action="#">
+                      <form onSubmit={handleStoreSubmit}>
                           <div className="input-holder">
                               <label htmlFor="storeLogo">Store Logo Source</label>
                               <input type="text" name="storeLogo" id="storeLogo" placeholder="src.." required/>
+                          </div>
+                          <div className="input-holder">
+                              <label htmlFor="storeBanner">Store Banner Source</label>
+                              <input type="text" name="storeBanner" id="storeBanner" placeholder="src.." required/>
+                          </div>
+                          <div className="input-holder">
+                              <label htmlFor="storeSlogan">Store Slogan</label>
+                              <input type="text" name="storeSlogan" id="storeSlogan" placeholder="src.." required/>
                           </div>
                           <div className="input-holder">
                               <label htmlFor="storeName">Store Name</label>
@@ -436,7 +432,7 @@ const AdminPage = () => {
                   </div>
                   <div className="uploadBlog" id="upoadBlog">
                       <h3>Upload a Blog</h3>
-                      <form action="#">
+                      <form onSubmit={handleBlogSubmit}>
                           <div className="input-holder">
                               <label htmlFor="blogHeading">Blog Heading </label>
                               <input type="text" name="blogHeading" id="blogHeading" placeholder="blogHeading.." required/>
@@ -451,6 +447,8 @@ const AdminPage = () => {
                           </div>
                           <button className="primary-button">Upload Blog</button>
                       </form>
+
+
                   </div>
                   <div className="subscribers" id="subscribers">
                       <h3>Subscribers</h3>

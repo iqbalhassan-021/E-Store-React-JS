@@ -768,8 +768,33 @@
   width: 100%;
   display: none;
 }
+.form{
+  height: auto;
+  max-width: 420px;
+  background-color: white;
+}
+.form-group{
+  height: auto;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.form-group input{
+  height: 35px;
+  width: 100%;
 
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
 
+.form-group textarea{
+
+  width: 100%;
+
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
 @media only screen and (max-width: 1320px) {
   .grid{
       display: grid;

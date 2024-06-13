@@ -1,22 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
 
 const QuickBuy = () => {
+  
+  const [productCode, setproductCode] = useState('');
+  const [productImage, setproductImage] = useState('');
+  const [productName, setproductName] = useState('');
+  const [productPrice, setproductPrice] = useState(0);
+  const [productType, setproductType] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const dataCollection = collection(db, 'products');
+      try {
+        const querySnapshot = await getDocs(dataCollection);
+        if (!querySnapshot.empty) {
+          const firstDocument = querySnapshot.docs[0];
+          const product = firstDocument.data(); // Corrected typo here
+          const productCode = product.productCode;
+          const productImage = product.productImage;
+          const productName = product.productName;
+          const productPrice = product.productPrice;
+          const productType = product.productType;
+
+          setproductName(productName);
+          setproductCode(productCode);
+          setproductImage(productImage);
+          setproductPrice(productPrice);
+          setproductType(productType);
+
+
+
+
+        } else {
+          console.log('No documents found!');
+        }
+      } catch (error) {
+        console.error("Error retrieving site data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+
+
+
   return (
    
     <div className="quick-buy">
       <div className="cover">
         <div className="container">
           <div className="the-product">
-            <img src="/assets/images/s1.png" alt="Product Image" className="Product-image" />
+            <img src={productImage} alt="Product Image" className="Product-image" />
           </div>
           <div className="the-details">
             <p>Quick Buy</p>
-            <p className="title">Wolf and the moon printed shirt</p>
+            <p className="title">
+              {productName}
+            </p>
             <br />
-            <p>Shirt Type: Oversized</p>
-            <p>From RS. 1600</p>
+            <p> Code: {productCode}</p>
+            <p>Shirt Type: {productType}</p>
+            <p>From RS. {productPrice}</p>
             <p>Shipping fee may be added based on the location</p>
-            <p>Available sizes - Click on any to see Size Chart</p>
+            <p>Available sizes</p>
             <div className="size-container">
               <div className="size">S</div><p style={{opacity: '0%'}}>--</p>
               <div className="size">M</div><p style={{opacity: '0%'}}>--</p>
