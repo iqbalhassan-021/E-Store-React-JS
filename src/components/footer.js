@@ -117,7 +117,7 @@ const Footer = () => {
                                 </form>
                             </div>
                             <div className="instalink">
-                                <a href="#" className="no-decoration navLink">
+                                <a href={instaID} className="no-decoration navLink">
                                     <i className="fa-brands fa-instagram navLink"></i>
                                 </a>
                                 <a href="#" className="no-decoration" style={{ marginLeft: '10px' }}>

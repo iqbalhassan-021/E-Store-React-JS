@@ -55,7 +55,7 @@ const AdminPage = () => {
     const blogData = {
       blogHeading: document.getElementById('blogHeading').value,
       blogImage: document.getElementById('blogImage').value,
-      blogContent: document.getElementById('blogImage').value,
+      blogContent: document.getElementById('blogContent').value,
 
     }
     e.preventDefault();

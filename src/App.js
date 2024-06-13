@@ -9,6 +9,7 @@ import BlogPage from './pages/Blog';
 import LoginPage from './pages/Login';
 import AdminPage from './pages/Admin';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
     <Route path='/Blog' element={<BlogPage/>}/>
     <Route path='/Login' element={<LoginPage/>}/>
     <Route path='/Admin' element={<AdminPage/>}/>
+    <Route path='*' element={<ErrorPage/>}/>
     </Routes>
 
 

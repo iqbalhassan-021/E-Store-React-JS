@@ -795,6 +795,18 @@
   border: 1px solid black;
   border-radius: 3px;
 }
+.error-404{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.error-404 img{
+  max-width: 420px;
+  height: auto;
+}
 @media only screen and (max-width: 1320px) {
   .grid{
       display: grid;
