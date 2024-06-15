@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
+import { Navigate , useNavigate } from 'react-router-dom';
 import Navbar from '../components/navBar';
 import Footer from '../components/footer';
 
 const AboutPage = () => {
+  const [siteName, setSiteName] = useState('');
+  const [siteLogo, setSiteLogo] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const dataCollection = collection(db, 'storeDetails');
+      try {
+        const querySnapshot = await getDocs(dataCollection);
+        if (!querySnapshot.empty) {
+          const firstDocument = querySnapshot.docs[0];
+          const siteInfo = firstDocument.data(); // Corrected typo here
+          const siteName = siteInfo.siteName;
+          const siteLogo = siteInfo.storeLogo;
+
+          setSiteName(siteName);
+          setSiteLogo(siteLogo)
+
+        } else {
+          console.log('No documents found!');
+        }
+      } catch (error) {
+        console.error("Error retrieving site data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
     <Navbar/>
@@ -10,7 +41,15 @@ const AboutPage = () => {
       <div className="cover">
         <div className="about-section">
           <div className="about-brand">
-            <img src="/assets/images/logo.png" alt="Logo" />
+          {siteLogo? (
+                  <Link to="/">
+                  <img src={siteLogo} alt="Logo" className="logo" />
+                  </Link>
+                ) : 
+                <Link to="/">
+                  <h1>{siteName}</h1>
+                </Link>
+                }
             <br />
             <p>
               Welcome to ISHA PRINTS, your go-to destination for custom T-shirt printing! Established with a passion for creativity and quality, we specialize in bringing your unique ideas to life on high-quality apparel. Whether you're looking to create personalized T-shirts for your business, events, sports teams, or personal use, we have you covered with our exceptional printing services.

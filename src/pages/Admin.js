@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, addDoc, getFirestore,getDocs} from 'firebase/firestore';
+import { collection, addDoc, getFirestore,getDocs,deleteDoc ,doc} from 'firebase/firestore';
 import { app } from '../firebase'; // Import your Firebase config
 
 
@@ -339,7 +339,9 @@ const AdminPage = () => {
                   <div className="text-holder">
                     <p>{product.productName}</p>
                     <p>Type: {product.productType}</p>
+                    <p>Type: {product.id}</p>
                     <p className="price-tag">From RS.{product.productPrice}</p>
+                   
                   </div>
                 </div>
           
