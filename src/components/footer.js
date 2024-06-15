@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
-
+import { app } from '../firebase'; 
 const Footer = () => {
+    const db = getFirestore(app); // Initialize Firestore
+    const handleSubscribe = async (e) => {
+        const subscribers = {
+            email : document.getElementById('sub').value
+        }
+        e.preventDefault();
+        try {
+          await addDoc(collection(db, 'subscribers'), subscribers);
+          alert('Email added successfully!');
+        } catch (error) {
+          console.error('Error adding email:', error);
+          alert('Error adding email. Please try again.');
+        }
+    };
+
+
     const [siteName, setSiteName] = useState('');
     const [instaID, setInstaID] = useState('');
     const [phone, setPhone] = useState('');
@@ -111,7 +127,7 @@ const Footer = () => {
                             <div className="subsriber-section">
                                 Subscribe now to receive exclusive special offers.
                                 <p style={{opacity: '0%'}}>--</p>
-                                <form action="#" className="subscribe">
+                                <form  className="subscribe" onSubmit={handleSubscribe}>
                                     <input type="email" name="email" placeholder="Email " required   id="sub"/>
                                     <button type="submit" className="primary-button sub">Subscribe</button>
                                 </form>

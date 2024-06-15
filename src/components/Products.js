@@ -12,7 +12,8 @@ const ProductShowcase = () => {
       try {
         const querySnapshot = await getDocs(dataCollection);
         const productList = querySnapshot.docs.map(doc => doc.data());
-        setProducts(productList);
+        // Slice the array to get only the first 6 elements
+        setProducts(productList.slice(0, 8));
       } catch (error) {
         console.error("Error retrieving product data: ", error);
       }
@@ -28,7 +29,7 @@ const ProductShowcase = () => {
             <p>No products are added yet</p>
           ) : (
             products.map((product) => (
-              <a href="#" className="no-decoration" key={product.productCode}>
+              <Link to={`/product/${product.id}`} className='no-decoration'> 
                 <div className="product-card">
                   <div className="image-container">
                     <img src={product.productImage} alt={product.productName} className="Product-image" />
@@ -36,10 +37,11 @@ const ProductShowcase = () => {
                   <div className="text-holder">
                     <p>{product.productName}</p>
                     <p>Type: {product.productType}</p>
+                    <p>Code: {product.id}</p>
                     <p className="price-tag">From RS.{product.productPrice}</p>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))
           )}
         </div>

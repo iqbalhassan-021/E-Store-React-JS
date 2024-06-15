@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [siteName, setSiteName] = useState('');
   const [siteLogo, setSiteLogo] = useState('');
-
+  const [instaID, setInstaID] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore();
@@ -30,6 +30,31 @@ const Navbar = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const dataCollection = collection(db, 'storeDetails');
+      try {
+        const querySnapshot = await getDocs(dataCollection);
+        if (!querySnapshot.empty) {
+          const firstDocument = querySnapshot.docs[0];
+          const siteInfo = firstDocument.data(); // Corrected typo here
+
+          const instaID = siteInfo.instaID;
+
+
+
+          setInstaID(instaID);
+
+        } else {
+          console.log('No documents found!');
+        }
+      } catch (error) {
+        console.error("Error retrieving site data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
   function handleHamburger(){
     const mobilenav = document.getElementById('mobilenav');
     if (mobilenav.style.display === 'flex') {
@@ -90,9 +115,9 @@ const Navbar = () => {
 
               </div>
               <div className="nav-container actions">
-                <button className="search-button" onClick={handleSearch}>
-                  <i className="fa-solid fa-magnifying-glass"></i>
-                </button>
+              <a  href={instaID} className="no-decoration navLink" target='blank'>
+                <i className="fa-brands fa-instagram navLink"></i>
+                </a>
                 <p style={{ opacity: '0%' }}>----</p>
                 <Link to="/Products" className="no-decoration navLink">
                   <i className="fa-solid fa-bag-shopping"></i>
@@ -115,16 +140,6 @@ const Navbar = () => {
                 <Link to="/Contact" className='no-decoration navLink'>
                   <p>Contact</p>
                 </Link>
-            </div>
-            <div className="search-container" id="searchContainer">
-              <div className="search-form">
-                <form action="#">
-                  <input type="text" placeholder="Search" className="search-input" name="search" id="search" />
-                  <button type="submit" className="primary-button">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                  </button>
-                </form>
-              </div>
             </div>
           </div>
         </div>

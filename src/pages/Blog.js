@@ -13,8 +13,8 @@ const BlogPage = () => {
       const dataCollection = collection(db, 'blogs');
       try {
         const querySnapshot = await getDocs(dataCollection);
-        const productList = querySnapshot.docs.map(doc => doc.data());
-        setblogs(productList);
+        const blogsList = querySnapshot.docs.map(doc => doc.data());
+        setblogs(blogsList);
       } catch (error) {
         console.error("Error retrieving product data: ", error);
       }

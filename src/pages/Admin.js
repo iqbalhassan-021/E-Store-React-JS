@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, addDoc, getFirestore } from 'firebase/firestore';
+import { collection, addDoc, getFirestore,getDocs} from 'firebase/firestore';
 import { app } from '../firebase'; // Import your Firebase config
-import ProductShowcase from '../components/Products';
+
 
 const AdminPage = () => {
 
@@ -17,7 +17,7 @@ const AdminPage = () => {
       productImage:   document.getElementById('productImage').value,
       productName:   document.getElementById('productName').value,
       productPrice:  document.getElementById('productPrice').value,
-      productCode:   document.getElementById('productCode').value,
+      id:   document.getElementById('id').value,
       productType:   document.getElementById('productType').value
     }
     e.preventDefault();
@@ -67,14 +67,23 @@ const AdminPage = () => {
       alert('Error uploading blog. Please try again.');
     }
   };
+  const [subscribers, setsubscribers] = useState([]);
 
-  const handleChange = (e, setData, data) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const dataCollection = collection(db, 'subscribers');
+      try {
+        const querySnapshot = await getDocs(dataCollection);
+        const subscribersList = querySnapshot.docs.map(doc => doc.data());
+        setsubscribers(subscribersList);
+      } catch (error) {
+        console.error("Error retrieving product data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
+
 
   function toggle() {
     const togglebar = document.getElementById('togglebar');
@@ -249,6 +258,43 @@ const AdminPage = () => {
           }
         }
       }
+
+      const [products, setProducts] = useState([]);
+
+      useEffect(() => {
+        const fetchData = async () => {
+          const db = getFirestore();
+          const dataCollection = collection(db, 'products');
+          try {
+            const querySnapshot = await getDocs(dataCollection);
+            const productList = querySnapshot.docs.map(doc => doc.data());
+            setProducts(productList);
+          } catch (error) {
+            console.error("Error retrieving product data: ", error);
+          }
+        };
+        fetchData();
+      }, []);
+      const handleCopy = () => {
+        // Select all email texts
+        const textToCopy = subscribers.length === 0
+          ? 'No subscribers yet'
+          : subscribers.map(subscriber => subscriber.email).join('\n');
+    
+        // Create a temporary textarea element to hold the text to be copied
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = textToCopy;
+        document.body.appendChild(tempTextArea);
+    
+        // Select and copy the text
+        tempTextArea.select();
+        document.execCommand('copy');
+    
+        // Remove the temporary textarea
+        document.body.removeChild(tempTextArea);
+    
+        alert('Emails copied to clipboard!');
+      };
   return (
 
     <div className="admin-page">
@@ -269,7 +315,7 @@ const AdminPage = () => {
           <div className="Toggleactions">
               <div className="toggle-bar" id="togglebar">
                   <button className="primary-button" onClick={showHome}>Home</button>
-                  <button className="primary-button" onClick={showOrders}>New Orders</button>
+                  <button className="primary-button" onClick={showOrders}>Orders</button>
                   <button className="primary-button" onClick={showUploadProducts}>Upload a product</button>
                   <button className="primary-button" onClick={showEditStore}>Edit Store</button>
                   <button className="primary-button" onClick={showUploadBlog}>Upload a Blog</button>
@@ -281,32 +327,28 @@ const AdminPage = () => {
               </div>
               <div className="tabs">
                   <div className="homeTab" id="hometab">
-
-          
-            
-              <div className="product-card">
+                  {products.length === 0 ? (
+            <p>No products are added yet</p>
+          ) : (
+            products.map((product) => (
+             
+                <div className="product-card">
                   <div className="image-container">
-                      <img src="/assets/images/s1.png" alt="Product Image" className="Product-image"/>
+                    <img src={product.productImage} alt={product.productName} className="Product-image" />
                   </div>
                   <div className="text-holder">
-                      <p>
-                          Wolf and the moon printed shirt
-                          
-                      </p>
-                      <p>
-                          Type : Oversized
-                      </p>
-                      <p>
-                          Product Code : SH1122
-                      </p>
-                      <p className="price-tag">
-                         From RS.1800
-                      </p>
+                    <p>{product.productName}</p>
+                    <p>Type: {product.productType}</p>
+                    <p className="price-tag">From RS.{product.productPrice}</p>
                   </div>
-              </div>
+                </div>
+          
+            ))
+          )}
 
+        </div>
 
-                  </div>
+              
 
 
                   <div className="ordersTab" id="orders">
@@ -358,6 +400,9 @@ const AdminPage = () => {
 
                   <div className="uploadTab" id="uploadtab">
                       <h3>Upload a Product</h3>
+                      <p>
+                        Note : Upload all the images on <a href='https://imgbb.com/' target='blank'>imgbb</a>, select the image and copy image address then paste the link here.
+                      </p>
                       <form onSubmit={handleProductSubmit}>
                           <div className="input-holder">
                               <label for="productImage">Product Image Source</label>
@@ -375,8 +420,8 @@ const AdminPage = () => {
                                   <input type="number" name="productPrice" id="productPrice" placeholder="Price.." required/>
                               </div>
                               <div className="input-holder" style={{ marginLeft: '10px' }}>
-                                  <label for="productCode">Product Code</label>
-                                  <input type="text" name="productCode" id="productCode" placeholder="Code.." required/>
+                                  <label for="id">Product Code</label>
+                                  <input type="text" name="id" id="id" placeholder="Code.." required/>
                               </div>
                               <div className="input-holder"  style={{ marginLeft: '10px' }}>
                                   <label for="productType">Product Type</label>
@@ -385,6 +430,7 @@ const AdminPage = () => {
                                       <option value="tshirt">T Shirt</option>
                                       <option value="fullsleeve">Full sleeves</option>
                                       <option value="polo">Polo</option>
+                                      <option value="polo">Gymwear</option>
                                   </select>
                               </div>
                           </div>
@@ -394,6 +440,9 @@ const AdminPage = () => {
                   </div>
                   <div className="editStore" id="editstore">
                       <h3>Edit Store</h3>
+                      <p>
+                        Note : Upload all the images on <a href='https://imgbb.com/' target='blank'>imgbb</a>, select the image and copy image address then paste the link here.
+                      </p>
                       <form onSubmit={handleStoreSubmit}>
                           <div className="input-holder">
                               <label htmlFor="storeLogo">Store Logo Source</label>
@@ -432,6 +481,9 @@ const AdminPage = () => {
                   </div>
                   <div className="uploadBlog" id="upoadBlog">
                       <h3>Upload a Blog</h3>
+                      <p>
+                        Note : Upload all the images on <a href='https://imgbb.com/' target='blank'>imgbb</a>, select the image and copy image address then paste the link here.
+                      </p>
                       <form onSubmit={handleBlogSubmit}>
                           <div className="input-holder">
                               <label htmlFor="blogHeading">Blog Heading </label>
@@ -453,23 +505,24 @@ const AdminPage = () => {
                   <div className="subscribers" id="subscribers">
                       <h3>Subscribers</h3>
                       <div className="new-order">
-                          <p>
-                              hassan.ashfaq82@gmail.com 
-                              <br/>
-                              19101001-021@uskt.edu.Paksitanbr
-                              <br/>
-                              sample@gmail.com
-                          </p>
+                        {subscribers.length === 0 ? (
+                          <p>No subscribers yet</p>
+                        ) : (
+                          subscribers.map((subscriber) => (
+                            <p>
+                              {subscriber.email},
+                            </p>
+                        )))}
                       </div>
                       <br/>
-                      <button className="primary-button">Copy all emails</button>
+                      <button className="primary-button" onClick={handleCopy}>Copy all emails</button>
                   </div>
               </div>
           </div>
       </div>
   </div>
-</div>
 
+  </div>
 
   );
   
