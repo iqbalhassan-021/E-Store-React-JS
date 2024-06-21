@@ -295,7 +295,7 @@ const AdminPage = () => {
         }
       }
 
-      function showSubscribers(){
+      function showCategories(){
         
         const hometab = document.getElementById('hometab');
         const upoadBlog = document.getElementById('upoadBlog');
@@ -420,7 +420,7 @@ const AdminPage = () => {
                   <button className="primary-button" onClick={showUploadProducts}>Upload a product</button>
                   <button className="primary-button" onClick={showEditStore}>Edit Store</button>
                   <button className="primary-button" onClick={showUploadBlog}>Upload a Blog</button>
-                  <button className="primary-button" onClick={showSubscribers}>Categories</button>
+                  <button className="primary-button" onClick={showCategories}>Categories</button>
                   <button className="primary-button" onClick={showSubscribers}>Subscribers</button>
                   <Link to="/" className='no-decoration navLink'>
                   <button className="primary-button" >Go to store</button>
