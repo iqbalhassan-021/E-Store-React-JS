@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs,getDoc,doc } from 'firebase/firestore';
+import { Link, useParams } from 'react-router-dom';
 
 
 const QuickBuy = () => {
@@ -9,6 +10,11 @@ const QuickBuy = () => {
   const [productName, setproductName] = useState('');
   const [productPrice, setproductPrice] = useState(0);
   const [productType, setproductType] = useState('');
+  const [instaID, setInstaID] = useState('');
+  const [currency, setcurrency] = useState('');
+  const [Dollars, setDollars] = useState('');
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,13 +30,15 @@ const QuickBuy = () => {
           const productName = product.productName;
           const productPrice = product.productPrice;
           const productType = product.productType;
+     
+
 
           setproductName(productName);
           setproductCode(productCode);
           setproductImage(productImage);
           setproductPrice(productPrice);
           setproductType(productType);
-
+    
 
 
 
@@ -43,9 +51,32 @@ const QuickBuy = () => {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const dataCollection = collection(db, 'storeDetails');
+      try {
+        const querySnapshot = await getDocs(dataCollection);
+        if (!querySnapshot.empty) {
+          const firstDocument = querySnapshot.docs[0];
+          const siteInfo = firstDocument.data(); // Corrected typo here
 
+          const instaID = siteInfo.instaID;
+          const currency = siteInfo.currency;
+          const Dollars = siteInfo.shippingrate;
+          setInstaID(instaID);
+          setcurrency(currency);
+          setDollars(Dollars);
 
-
+        } else {
+          console.log('No documents found!');
+        }
+      } catch (error) {
+        console.error("Error retrieving site data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
 
 
   return (
@@ -57,15 +88,17 @@ const QuickBuy = () => {
             <img src={productImage} alt="Product Image" className="Product-image" />
           </div>
           <div className="the-details">
-            <p>Quick Buy</p>
+  
             <p className="title">
               {productName}
             </p>
             <br />
             <p> Code: {productCode}</p>
             <p>Shirt Type: {productType}</p>
+        
             <p>From RS. {productPrice}</p>
-            <p>Shipping fee may be added based on the location</p>
+            <p>Shipping fee : {currency}{Dollars}</p>
+
             <p>Available sizes</p>
             <div className="size-container">
               <div className="size">S</div><p style={{opacity: '0%'}}>--</p>
@@ -90,8 +123,17 @@ const QuickBuy = () => {
               <div className="color" style={{ backgroundColor: '#87CEEB' }} title="Sky Blue"></div>
             </div>
             <br />
-            <button className="primary-button white-button">Let's talk about this product</button>
-            <button className="primary-button">Buy Now</button>
+            {instaID? (
+              <a  href={instaID} className="no-decoration navLink" target='blank'>
+                          <button className="primary-button white-button">Let's talk about this product</button>
+              </a>                
+                ) : (
+                  <a  href="#" className="no-decoration navLink" target='blank'>
+                             <button className="primary-button white-button">Let's talk about this product</button>
+                  </a>
+                )}
+
+
           </div>
         </div>
       </div>

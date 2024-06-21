@@ -13,8 +13,10 @@ const ProductShowcase = () => {
       const dataCollection = collection(db, 'products');
       try {
         const querySnapshot = await getDocs(dataCollection);
-        const productList = querySnapshot.docs.map(doc => doc.data());
-        // Slice the array to get only the first 6 elements
+        const productList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
         setProducts(productList);
       } catch (error) {
         console.error("Error retrieving product data: ", error);
@@ -25,34 +27,34 @@ const ProductShowcase = () => {
 
   return (
     <>
-    <Navbar/>
-    <div className="product-showcase">
-      <div className="cover">
-        <div className="showcase grid">
-          {products.length === 0 ? (
-            <p>No products are added yet</p>
-          ) : (
-            products.map((product) => (
-              <Link to={`/product/${product.id}`} className='no-decoration'> 
-                <div className="product-card">
-                  <div className="image-container">
-                    <img src={product.productImage} alt={product.productName} className="Product-image" />
-                  </div>
-                  <div className="text-holder">
-                    <p>{product.productName}</p>
-                    <p>Type: {product.productType}</p>
-                    <p>Code: {product.id}</p>
-                    <p className="price-tag">From RS.{product.productPrice}</p>
-                  </div>
-                </div>
-              </Link>
-            ))
-          )}
-        </div>
+      <Navbar />
+      <div className="product-showcase">
+        <div className="cover">
+          <div className="showcase grid">
+            {products.length === 0 ? (
+              <p>No products are added yet</p>
+            ) : (
+              products.map((product) => (
+                <Link key={product.id} to={`/product/${product.id}`} className='no-decoration'>
+                  <div className="product-card">
+                    <div className="image-container">
+                      <img src={product.productImage} alt={product.productName} className="Product-image" />
+                    </div>
+                    <div className="text-holder">
+                      <p>{product.productName}</p>
+                      <p>Type: {product.productType}</p>
+                      <p>Code: {product.productCode}</p>
+                      <p className="price-tag">From RS.{product.productPrice}</p>
 
+                    </div>
+                  </div>
+                </Link>
+              ))
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 };

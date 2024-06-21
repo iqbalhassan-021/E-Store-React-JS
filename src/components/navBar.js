@@ -115,9 +115,15 @@ const Navbar = () => {
 
               </div>
               <div className="nav-container actions">
+                {instaID? (
               <a  href={instaID} className="no-decoration navLink" target='blank'>
-                <i className="fa-brands fa-instagram navLink"></i>
-                </a>
+              <i className="fa-brands fa-instagram navLink"></i>
+              </a>                
+                ) : (
+                  <a  href="#" className="no-decoration navLink" target='blank'>
+                  <i className="fa-brands fa-instagram navLink"></i>
+                  </a>
+                )}
                 <p style={{ opacity: '0%' }}>----</p>
                 <Link to="/Products" className="no-decoration navLink">
                   <i className="fa-solid fa-bag-shopping"></i>

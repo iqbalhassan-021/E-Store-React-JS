@@ -815,6 +815,65 @@
 
    margin-top: 20px;
 }
+
+.buy-container{
+  height: auto;
+  width: 100%;
+}
+.buyit{
+  height: auto;
+  width: 100%;
+
+  
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.product-side{
+  height: auto;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.product-info{
+  height: auto;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.buyit form{
+  height: auto;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: row;
+}
+
+.trans-input{
+  height: 35px;
+  width: 100%;
+  background-color: transparent;
+  padding-left: 10px;
+
+  border-radius: 3px;
+  border: none;
+ 
+}
+
+.mbl-actions{
+  display: flex;
+  flex-direction: row;
+}
+.mbl-actions button{
+  font-size: 26px;
+  height: 36px;
+  padding: 0px;
+  width: 50px;
+  margin-bottom: 0%;
+}
+
 @media only screen and (max-width: 1320px) {
   .grid{
       display: grid;
@@ -861,6 +920,19 @@
   }
   .tabs{
     width: 100%;
+  }
+  .buyit form{
+    display: flex;
+    flex-direction: column;
+  }
+  .product-side,.product-info{
+    width: 100%;
+    height: auto;
+  }
+  .product-side img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }   
 @media only screen and (max-width: 720px) {
@@ -969,6 +1041,16 @@
   }
   .product-card{
     height: auto;
+  }
+  .mbl-actions{
+    display: flex;
+    flex-direction: column;
+  }
+  .mbl-actions button{
+    width: 100%;
+  }
+  .mbl-actions p{
+    text-align: center;
   }
 }
 @media only screen and (max-width: 420px) {

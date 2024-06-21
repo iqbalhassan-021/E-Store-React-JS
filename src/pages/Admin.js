@@ -17,7 +17,7 @@ const AdminPage = () => {
       productImage:   document.getElementById('productImage').value,
       productName:   document.getElementById('productName').value,
       productPrice:  document.getElementById('productPrice').value,
-      id:   document.getElementById('id').value,
+      productCode:   document.getElementById('productCode').value,
       productType:   document.getElementById('productType').value
     }
     e.preventDefault();
@@ -27,6 +27,22 @@ const AdminPage = () => {
     } catch (error) {
       console.error('Error adding product:', error);
       alert('Error adding product. Please try again.');
+    }
+  };
+  const handleCateogy = async (e) => {
+
+    const productData = {
+      categoryImage:   document.getElementById('categoryImage').value,
+      categoryName:   document.getElementById('categoryName').value
+
+    }
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, 'Category'), productData);
+      alert('Category added successfully!');
+    } catch (error) {
+      console.error('Error adding Category:', error);
+      alert('Error adding Category. Please try again.');
     }
   };
 
@@ -39,7 +55,13 @@ const AdminPage = () => {
       email: document.getElementById('email').value,
       address: document.getElementById('address').value,
       storeBanner: document.getElementById('storeBanner').value,
-      storeSlogan: document.getElementById('storeSlogan').value 
+      storeSlogan: document.getElementById('storeSlogan').value,
+      currency: document.getElementById('currency').value,
+      shippingrate: document.getElementById('ratedollar').value,
+      bankHolder: document.getElementById('accHolder').value,
+      bankName: document.getElementById('bank').value,
+      iban: document.getElementById('iban').value,
+      about:  document.getElementById('about').value,
     }
     e.preventDefault();
     try {
@@ -101,6 +123,7 @@ const AdminPage = () => {
         const uploadtab = document.getElementById('uploadtab');
         const editstore = document.getElementById('editstore');
         const subscribers = document.getElementById('subscribers');
+        const categories = document.getElementById('categories');//categories
         if (hometab.style.display === 'grid') {
           hometab.style.display = 'grid';
 
@@ -110,6 +133,7 @@ const AdminPage = () => {
           uploadtab.style.display = 'none';
           editstore.style.display = 'none';
           subscribers.style.display = 'none';
+          categories.style.display = 'none';//categories
           upoadBlog.style.display = 'none';
           const togglebar = document.getElementById('togglebar');
           if(window.innerWidth <= 880){
@@ -128,18 +152,22 @@ const AdminPage = () => {
         const uploadtab = document.getElementById('uploadtab');
         const editstore = document.getElementById('editstore');
         const subscribers = document.getElementById('subscribers');
+        const categories = document.getElementById('categories');//categories
         if (orders.style.display === 'grid') {
             orders.style.display = 'none';
             hometab.style.display = 'grid';
         }
         else {
+          categories.style.display = 'none';//categories
           hometab.style.display = 'none';
           upoadBlog.style.display = 'none';
           orders.style.display = 'grid';
           uploadtab.style.display = 'none';
           editstore.style.display = 'none';
           subscribers.style.display = 'none';
+
           const togglebar = document.getElementById('togglebar');
+
           if(window.innerWidth <= 880){
             togglebar.style.display = 'none';
           }
@@ -155,11 +183,13 @@ const AdminPage = () => {
         const uploadtab = document.getElementById('uploadtab');
         const editstore = document.getElementById('editstore');
         const subscribers = document.getElementById('subscribers');
+        const categories = document.getElementById('categories');//categories
         if (uploadtab.style.display === 'block') {
             uploadtab.style.display = 'none';
             hometab.style.display = 'grid';
         }
         else {
+          categories.style.display = 'none';//categories
             uploadtab.style.display = 'block';
         hometab.style.display = 'none';
           orders.style.display = 'none';
@@ -182,11 +212,13 @@ const AdminPage = () => {
         const uploadtab = document.getElementById('uploadtab');
         const editstore = document.getElementById('editstore');
         const subscribers = document.getElementById('subscribers');
+        const categories = document.getElementById('categories');//categories
         if (editstore.style.display === 'block') {
             editstore.style.display = 'none';
             hometab.style.display = 'grid';
         }
         else {
+          categories.style.display = 'none';//categories
             editstore.style.display = 'block';
         hometab.style.display = 'none';
           orders.style.display = 'none';
@@ -210,11 +242,13 @@ const AdminPage = () => {
         const uploadtab = document.getElementById('uploadtab');
         const editstore = document.getElementById('editstore');
         const subscribers = document.getElementById('subscribers');
+        const categories = document.getElementById('categories');//categories
         if (upoadBlog.style.display === 'block') {
             upoadBlog.style.display = 'none';
             hometab.style.display = 'grid';
         }
         else {
+          categories.style.display = 'none';//categories
             upoadBlog.style.display = 'block';
         hometab.style.display = 'none';
           orders.style.display = 'none';
@@ -238,17 +272,50 @@ const AdminPage = () => {
         const uploadtab = document.getElementById('uploadtab');
         const editstore = document.getElementById('editstore');
         const subscribers = document.getElementById('subscribers');
+        const categories = document.getElementById('categories');//categories
         if (subscribers.style.display === 'block') {
             subscribers.style.display = 'none';
             hometab.style.display = 'grid';
         }
         else {
+          categories.style.display = 'none';//categories
             upoadBlog.style.display = 'none';
         hometab.style.display = 'none';
           orders.style.display = 'none';
           uploadtab.style.display = 'none';
           editstore.style.display = 'none';
           subscribers.style.display = 'block';
+          const togglebar = document.getElementById('togglebar');
+          if(window.innerWidth <= 880){
+            togglebar.style.display = 'none';
+          }
+          else{
+              togglebar.style.display = 'flex';
+          }
+        }
+      }
+
+      function showSubscribers(){
+        
+        const hometab = document.getElementById('hometab');
+        const upoadBlog = document.getElementById('upoadBlog');
+        const orders = document.getElementById('orders');
+        const uploadtab = document.getElementById('uploadtab');
+        const editstore = document.getElementById('editstore');
+        const subscribers = document.getElementById('subscribers');
+        const categories = document.getElementById('categories');//categories
+        if (categories.style.display === 'block') {
+            categories.style.display = 'none';
+            hometab.style.display = 'grid';
+        }
+        else {
+          categories.style.display = 'block';//categories
+            upoadBlog.style.display = 'none';
+        hometab.style.display = 'none';
+          orders.style.display = 'none';
+          uploadtab.style.display = 'none';
+          editstore.style.display = 'none';
+          subscribers.style.display = 'none';
           const togglebar = document.getElementById('togglebar');
           if(window.innerWidth <= 880){
             togglebar.style.display = 'none';
@@ -295,6 +362,40 @@ const AdminPage = () => {
     
         alert('Emails copied to clipboard!');
       };
+      const [orders, setOrders] = useState([]);
+
+      useEffect(() => {
+        const fetchData = async () => {
+          const db = getFirestore();
+          const dataCollection = collection(db, 'orders');
+          const querySnapshot = await getDocs(dataCollection);
+          if (!querySnapshot.empty) {
+            const ordersData = querySnapshot.docs.map(doc => doc.data());
+            setOrders(ordersData);
+          } else {
+            console.log('No orders found!');
+          }
+        };
+    
+        fetchData();
+      }, []);
+      const [Category, setCategory] = useState([]);
+
+      useEffect(() => {
+        const fetchData = async () => {
+          const db = getFirestore();
+          const dataCollection = collection(db, 'Category');
+          const querySnapshot = await getDocs(dataCollection);
+          if (!querySnapshot.empty) {
+            const CategoryData = querySnapshot.docs.map(doc => doc.data());
+            setCategory(CategoryData);
+          } else {
+            console.log('No orders found!');
+          }
+        };
+    
+        fetchData();
+      }, []);
   return (
 
     <div className="admin-page">
@@ -319,8 +420,8 @@ const AdminPage = () => {
                   <button className="primary-button" onClick={showUploadProducts}>Upload a product</button>
                   <button className="primary-button" onClick={showEditStore}>Edit Store</button>
                   <button className="primary-button" onClick={showUploadBlog}>Upload a Blog</button>
+                  <button className="primary-button" onClick={showSubscribers}>Categories</button>
                   <button className="primary-button" onClick={showSubscribers}>Subscribers</button>
-                  
                   <Link to="/" className='no-decoration navLink'>
                   <button className="primary-button" >Go to store</button>
                 </Link>
@@ -339,7 +440,7 @@ const AdminPage = () => {
                   <div className="text-holder">
                     <p>{product.productName}</p>
                     <p>Type: {product.productType}</p>
-                    <p>Type: {product.id}</p>
+                    <p>Code: {product.productCode}</p>
                     <p className="price-tag">From RS.{product.productPrice}</p>
                    
                   </div>
@@ -352,52 +453,66 @@ const AdminPage = () => {
 
               
 
+          <div className="categories" id="categories">
+          <p>Categores</p>
+          <p>
+                        Note : Upload all the images on <a href='https://imgbb.com/' target='blank'>imgbb</a>, select the image and copy image address then paste the link here.
+                      </p>
+          <form onSubmit={handleCateogy}>
+          <div className="input-holder">
+                       <label for="categoryImage">Category Image Source</label>
+                       <input type="text" name="categoryImage" id="categoryImage" placeholder="src.." required/>
+                   </div>
+                   <div className="input-holder">
+                       <label for="categoryName">Category Name</label>
+                       <input type="text" name="categoryName" id="categoryName" placeholder="Category Name.." required/>
+                   </div>
+                   <button className="primary-button">Add Category</button>
+          </form>
+          </div>
+
+
+
 
                   <div className="ordersTab" id="orders">
-                      <div className="new-order">
-                          <p>
-                              <strong>
-                                Name :
-                                </strong>
-                              Asma Liaqut Ali
-                          </p>
-                          <p>
-                              <strong>
-                                  Phone : 
-                              </strong>
-                              03107949622
-                          </p>
-                          <p>
-                              <strong>
-                                  Address : 
-                              </strong>
-                              Faisalabd
-                          </p>
-                          <p>
-                              <strong>
-                                  Product Name: 
-                              </strong>
-                              Wolf and the moon printed shirt
-                          </p>
-                          <p>
-                              <strong>
-                                  Product Code: 
-                              </strong>
-                              SH1122
-                          </p>
-                          <p>
-                              <strong>
-                                  Quantity : 
-                              </strong>
-                              2
-                          </p>
-                          <p>
-                              <strong>
-                                  Total Bill  : 
-                              </strong>
-                              2600
-                          </p>
-                      </div>
+                  {orders.length === 0 ? (
+        <p>No orders</p>
+      ) : (
+                  orders.map((order, index) => (
+                      <div className="new-order" key={index}>
+                        <img src={order.productImg} alt={order.productName} style={{maxWidth:'200px'}}/>
+                        <p>
+                          <strong>Name:</strong> {order.buyerName}
+                        </p>
+                        <p>
+                          <strong>Phone:</strong> {order.buyerEmail}
+                        </p>
+                        <p>
+                          <strong>Address:</strong> {order.buyerAddress}
+                        </p>
+                        <p>
+                          <strong>Product Name:</strong> {order.productName}
+                        </p>
+                        <p>
+                          <strong>Product Code:</strong> {order.productCode}
+                        </p>
+                        <p>
+                          <strong>Product Type:</strong> {order.productType}
+                        </p>
+                        <p>
+                          <strong>Quantity:</strong> {order.productQuantity}
+                        </p>
+                        <p>
+                          <strong>Size:</strong> {order.size}
+                        </p>
+                        <p>
+                          <strong>Color:</strong> {order.color}
+                        </p>
+                        <p>
+                          <strong>Total Bill:</strong> {order.totalAmount}
+                        </p>
+                      </div>)
+                    ))}
                   </div>
 
                   <div className="uploadTab" id="uploadtab">
@@ -415,24 +530,25 @@ const AdminPage = () => {
                               <label for="productName">Product Name</label>
                               <input type="text" name="productName" id="productName" placeholder="product Name.." required/>
                           </div>
-                          <div className="input-holder" style={{ display: 'flex', flexDirection: 'row' }}>
+                          <div className="input-holder mbl-actions" >
 
                               <div className="input-holder">
                                   <label for="productPrice">Product Price</label>
                                   <input type="number" name="productPrice" id="productPrice" placeholder="Price.." required/>
                               </div>
                               <div className="input-holder" style={{ marginLeft: '10px' }}>
-                                  <label for="id">Product Code</label>
-                                  <input type="text" name="id" id="id" placeholder="Code.." required/>
+                                  <label for="productCode">Product Code</label>
+                                  <input type="text" name="productCode" id="productCode" placeholder="Product Code.." required/>
                               </div>
                               <div className="input-holder"  style={{ marginLeft: '10px' }}>
                                   <label for="productType">Product Type</label>
                                   <select type="text" name="productType" id="productType" required>
-                                      <option value="oversized">Oversized</option>
-                                      <option value="tshirt">T Shirt</option>
-                                      <option value="fullsleeve">Full sleeves</option>
-                                      <option value="polo">Polo</option>
-                                      <option value="polo">Gymwear</option>
+                                  {Category.length === 0 ? (
+                                   <p>No Category</p>
+                                                ) : (
+                                    Category.map((categories, index) => (
+                                               <option value={categories.categoryName}>{categories.categoryName}</option>
+                                             )))}
                                   </select>
                               </div>
                           </div>
@@ -448,7 +564,7 @@ const AdminPage = () => {
                       <form onSubmit={handleStoreSubmit}>
                           <div className="input-holder">
                               <label htmlFor="storeLogo">Store Logo Source</label>
-                              <input type="text" name="storeLogo" id="storeLogo" placeholder="src.." required/>
+                              <input type="text" name="storeLogo" id="storeLogo" placeholder="src.." />
                           </div>
                           <div className="input-holder">
                               <label htmlFor="storeBanner">Store Banner Source</label>
@@ -464,7 +580,7 @@ const AdminPage = () => {
                           </div>
                           <div className="input-holder">
                               <label htmlFor="instaID">Instgram Link</label>
-                              <input type="text" name="instaID" id="instaID" placeholder="link.." required/>
+                              <input type="text" name="instaID" id="instaID" placeholder="link.." />
                           </div>
                           <div className="input-holder">
                               <label htmlFor="phone">Store Phone NO#</label>
@@ -477,6 +593,63 @@ const AdminPage = () => {
                           <div className="input-holder">
                               <label htmlFor="address">Store address </label>
                               <input type="text" name="address" id="address" placeholder="address.." required/>
+                          </div>
+                          <div className="input-holder">
+                              <label htmlFor="about">About Store</label>
+                              <textarea type="text" name="about" id="about" cols="15" rows="15" required></textarea>
+                          </div>
+                          <p>Shipping Rates</p>
+                        <hr></hr>
+                          <div className="input-holder">
+                          <label for="currency">Choose a currency:</label>
+                          <select id="currency" name="currency">
+                              <option value="RS">Pak Rupees (RS)</option>
+                              <option value="USD">United States Dollar (USD)</option>
+                              <option value="EUR">Euro (EUR)</option>
+                              <option value="GBP">British Pound Sterling (GBP)</option>
+                              <option value="JPY">Japanese Yen (JPY)</option>
+                              <option value="AUD">Australian Dollar (AUD)</option>
+                              <option value="CAD">Canadian Dollar (CAD)</option>
+                              <option value="CHF">Swiss Franc (CHF)</option>
+                              <option value="CNY">Chinese Yuan (CNY)</option>
+                              <option value="INR">Indian Rupee (INR)</option>
+                              <option value="BRL">Brazilian Real (BRL)</option>
+                              <option value="ZAR">South African Rand (ZAR)</option>
+                              <option value="RUB">Russian Ruble (RUB)</option>
+                              <option value="KRW">South Korean Won (KRW)</option>
+                              <option value="MXN">Mexican Peso (MXN)</option>
+                              <option value="SGD">Singapore Dollar (SGD)</option>
+                              <option value="HKD">Hong Kong Dollar (HKD)</option>
+                              <option value="MYR">Malaysian Ringgit (MYR)</option>
+                              <option value="THB">Thai Baht (THB)</option>
+                              <option value="NZD">New Zealand Dollar (NZD)</option>
+                              <option value="PKR">Pakistani Rupee (PKR)</option>
+                              <option value="SAR">Saudi Riyal (SAR)</option>
+                              <option value="TRY">Turkish Lira (TRY)</option>
+                              <option value="AED">United Arab Emirates Dirham (AED)</option>
+                          </select>
+                          </div>
+                          <div className="input-holder">
+                              <label htmlFor="ratedollar">Average Shipping Rate</label>
+                              <input type="text" name="ratedollar" id="ratedollar" placeholder="0" />
+                              
+                          </div>
+                          <p>Account Details</p>
+                          <hr></hr>
+                          <div className="input-holder">
+                              <label htmlFor="accHolder">Account Holder Name</label>
+                              <input type="text" name="accHolder" id="accHolder" placeholder="Name" required/>
+                              
+                          </div>
+                          <div className="input-holder">
+                              <label htmlFor="bank">Bank Name</label>
+                              <input type="text" name="bank" id="bank" placeholder="Bank Name" Bank/>
+                              
+                          </div>
+                          <div className="input-holder">
+                              <label htmlFor="iban">IBAN</label>
+                              <input type="text" name="iban" id="iban" placeholder="IBAN" required/>
+                              
                           </div>
                           <button className="primary-button">Save Details</button>
                       </form>
