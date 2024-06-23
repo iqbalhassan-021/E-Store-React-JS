@@ -31,6 +31,9 @@
   margin-right: auto;
 
 }
+.categories{
+  display: none;
+}
 .header{
   height: auto;
   width: 100%;

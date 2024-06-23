@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const ProductShowcase = () => {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore();
@@ -22,16 +23,18 @@ const ProductShowcase = () => {
     fetchData();
   }, []);
 
+  // Slice the products array to show only the first 8 products
+  const displayedProducts = products.slice(0, 8);
 
   return (
     <div className="product-showcase">
       <div className="cover">
         <div className="showcase grid">
-          {products.length === 0 ? (
+          {displayedProducts.length === 0 ? (
             <p>No products are added yet</p>
           ) : (
-            products.map((product) => (
-              <Link to={`/product/${product.id}`} className='no-decoration'> 
+            displayedProducts.map((product) => (
+              <Link key={product.id} to={`/product/${product.id}`} className='no-decoration'>
                 <div className="product-card">
                   <div className="image-container">
                     <img src={product.productImage} alt={product.productName} className="Product-image" />
