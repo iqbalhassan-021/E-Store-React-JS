@@ -38,7 +38,9 @@ const AboutPage = () => {
 
   return (
     <>
-    <Navbar/>
+        <div className='sticky'>
+            <Navbar/>
+        </div>
     <div className="aboutus">
       <div className="cover">
         <div className="about-section">

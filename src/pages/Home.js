@@ -10,7 +10,10 @@ import Categories from '../components/Categories';
 function Home(){
     return (
         <>
-        <Navbar/>
+        <div className='sticky'>
+            <Navbar/>
+        </div>
+     
             <HeroSlider/>
             <ProductShowcase/>
             <Categories/>

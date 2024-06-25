@@ -27,7 +27,9 @@ const ProductShowcase = () => {
 
   return (
     <>
-      <Navbar />
+        <div className='sticky'>
+            <Navbar/>
+        </div>
       <div className="product-showcase">
         <div className="cover">
           <div className="showcase grid">

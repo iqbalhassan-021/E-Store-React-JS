@@ -152,7 +152,9 @@ const minus = (event) => {
 }
   return (
     <>
-      <Navbar />
+        <div className='sticky'>
+            <Navbar/>
+        </div>
       <div className="buy-container">
         <div className="cover">
             <div className="buyit">

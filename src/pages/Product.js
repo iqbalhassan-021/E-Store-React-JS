@@ -89,7 +89,9 @@ const Product = () => {
 
   return (
     <>
-      <Navbar />
+           <div className='sticky'>
+            <Navbar/>
+        </div>
       <div className="quick-buy">
         <div className="cover">
           <div className="container">

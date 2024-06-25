@@ -175,16 +175,21 @@
   grid-template-columns: repeat(4,1fr);
   gap: 10px;
 }
-.product-card{
-  height: auto;
-  height: 500px;
+.product-card {
+  min-height: 500px;  /* Minimum height is set to 500px */
+  height: auto;      /* Height will adjust to cover the content */
   width: 100%;
   background-color: white;
+  overflow: hidden;  /* Optional: This can help prevent content overflow issues */
+  display: flex;     /* Optional: This can help manage the layout, especially if you use flexbox for content */
+  flex-direction: column; /* Optional: Ensures children are stacked vertically */
 }
+
 .image-container{
   background-color: rgba(150, 150, 150, 0.103);
   width: 100%;
-  height: 80%;
+  min-height: 400px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -194,7 +199,7 @@
   width: 100%;
 }
 .text-holder{
-  height: 20%;
+  min-height: 200px;
   width: 100%;
   background-color: white;
   padding-top: 10px;
@@ -1054,6 +1059,9 @@
   }
   .mbl-actions p{
     text-align: center;
+  }
+  .image-container{
+    min-height: 300px;
   }
 }
 @media only screen and (max-width: 420px) {

@@ -27,7 +27,9 @@ const BlogPage = () => {
 
   return (
     <>
-    <Navbar/>
+        <div className='sticky'>
+            <Navbar/>
+        </div>
     <div className="blog-section">
       <div className="cover">
         <div className="blogs">
